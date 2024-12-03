@@ -1,6 +1,8 @@
+import { calculatePixels } from "./rayTracer.js";
+
 const canvas = document.getElementById("viewport");
 
-function draw(canvas, pixels) {
+function draw(pixels) {
     const height = pixels.length;
     const width = pixels[0].length;
     const ctx = canvas.getContext("2d");
@@ -15,5 +17,4 @@ function draw(canvas, pixels) {
     }
 }
 
-// const pixels = Array(800).fill(Array(600).fill([0, 0, 0]));
-// draw(canvas, pixels);
+draw(calculatePixels());
