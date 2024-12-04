@@ -11,7 +11,7 @@ function draw(pixels) {
     for (let i = 0; i < height; i++) {
         for(let j = 0; j < width; j++) {
             let color = pixels[i][j];
-            ctx.fillStyle = `rgb(${color[0]}, ${color[1]} ${color[2]})`;
+            ctx.fillStyle = `rgb(${color[0]} ${color[1]} ${color[2]})`;
             ctx.fillRect(i, j, 1, 1);
         }
     }
