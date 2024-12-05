@@ -35,3 +35,7 @@ export function reflect(v, normal) {
 export function clamp(v, min, max) {
   return v.map(n => Math.max(min, Math.min(n, max)));
 }
+
+export function elemWiseMult([x, y, z], [w, j, k]) {
+  return [x*w, y*j, z*k];
+}
