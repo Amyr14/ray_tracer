@@ -5,13 +5,13 @@ const HEIGHT = 400;
 const FOCAL_LENGTH = 80;
 const MAX_STEPS = 20;
 const FOCAL_POINT = [0, 0, 0];
-const AMBIENT_LIGHT = [0.3, 0.3, 0.3];
+const AMBIENT_LIGHT = [0.25, 0.25, 0.25];
 const EPSILON = 1e-5;
 const FOV = 0.3
 
 const LIGHTS = [
   {
-    position: [0, 0, 0], // Luz na origem
+    position: [0, 30, -10], // Luz na origem
     intensity: [1, 1, 1],
   }
 ];
@@ -21,8 +21,8 @@ const SPHERES = [
     center: [0, 20, 60],
     radius: 20,
     material: {
-      reflectivity: 0.8,
-      roughness: 0.5,
+      reflectivity: 0.5,
+      roughness: 1,
       ambientCoeff: 0.8,
       color: [1, 0, 0],
     }
@@ -32,8 +32,8 @@ const SPHERES = [
     radius: 20,
     material: {
       reflectivity: 0.9,
-      roughness: 0.5,
-      ambientCoeff: 0.8,
+      roughness: 1,
+      ambientCoeff: 1,
       color: [0, 0, 1],
     }
   },
@@ -42,7 +42,7 @@ const SPHERES = [
     radius: 30,
     material: {
       reflectivity: 1,
-      roughness: 0.5,
+      roughness: 1,
       ambientCoeff: 0.8,
       color: [1, 1, 0],
     }
@@ -135,7 +135,7 @@ function shade(point, sphere) {
 
   let diffuseContrib = LIGHTS.map(light => {
     if ( isInShadow(point, light, normal) )
-      return [0, 0 ,0];
+      return [0, 0, 0];
 
     let lightToPoint = normalize(sub(light.position, point));
     let diffuse = scalarMult(scalarMult(elemWiseMult(light.intensity, color), roughness), dot(normal, lightToPoint));
@@ -179,7 +179,7 @@ function castRay(ray, steps) {
 
   // Calculando cor
   let reflectedColor = scalarMult(castRay(reflectionRay, steps + 1), reflectivity);
-  return clamp(add(color, reflectedColor), 0, 1);
+  return scalarMult(add(color, reflectedColor), 0.5);
 }
 
 export function calculatePixels() {
