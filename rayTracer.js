@@ -7,18 +7,19 @@ const MAX_STEPS = 20;
 const FOCAL_POINT = [0, 0, 0];
 const AMBIENT_LIGHT = [0.3, 0.3, 0.3];
 const EPSILON = 1e-5;
+const FOV = 0.3
 
 const LIGHTS = [
   {
-    position: [-55, -10, 60],
+    position: [0, 0, 0], // Luz na origem
     intensity: [1, 1, 1],
   }
 ];
 
 const SPHERES = [
   {
-    center: [0, 40, 60],
-    radius: 30,
+    center: [0, 20, 60],
+    radius: 20,
     material: {
       reflectivity: 0.8,
       roughness: 0.5,
@@ -27,7 +28,7 @@ const SPHERES = [
     }
   },
   {
-    center: [-70, 20, 60],
+    center: [-50, 10, 60],
     radius: 20,
     material: {
       reflectivity: 0.9,
@@ -193,8 +194,8 @@ export function calculatePixels() {
         faz com que a imagem final apresente uma distorção
         de pin-cushion
       */
-      let x = j - WIDTH / 2;
-      let y = i - HEIGHT / 2;
+      let x = (j - WIDTH / 2) * FOV;
+      let y = (i - HEIGHT / 2) * FOV;
       let direction = normalize([x, y, FOCAL_LENGTH]);
       let ray = createRay(FOCAL_POINT, direction);
 
